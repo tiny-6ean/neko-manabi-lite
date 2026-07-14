@@ -1,6 +1,8 @@
 const STORAGE_KEY = "nekoStudyLite";
 const FOOTPRINT_KEY = "nekoFootprintsLite";
 
+let viewArchived = false;
+
 function loadItems() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
 function saveItems(items) { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
 
@@ -239,6 +241,16 @@ function restoreItem(id) {
   renderList();
 }
 
+function switchToActive() {
+  viewArchived = false;
+  renderList();
+}
+
+function switchToArchived() {
+  viewArchived = true;
+  renderList();
+}
+
 function renderList() {
   const list = document.getElementById("list");
   const items = loadItems();
@@ -246,8 +258,15 @@ function renderList() {
   const keyword = search.value.trim().toLowerCase();
   const sortType = sort.value;
 
+  list.innerHTML = `
+    <div class="archive-switch" style="margin-bottom:12px; display:flex; gap:10px;">
+      <button onclick="switchToActive()" class="${viewArchived ? '' : 'btn-primary'}">学び一覧</button>
+      <button onclick="switchToArchived()" class="${viewArchived ? 'btn-primary' : ''}">アーカイブ一覧</button>
+    </div>
+  `;
+
   let filtered = items
-    .filter(i => !i.archived)
+    .filter(i => viewArchived ? i.archived : !i.archived)
     .filter(i => {
       const tagsText = (i.tags || []).join(" ").toLowerCase();
       return (i.title || "").toLowerCase().includes(keyword) ||
@@ -258,8 +277,6 @@ function renderList() {
   if (sortType === "new") filtered.sort((a,b)=>b.id-a.id);
   if (sortType === "old") filtered.sort((a,b)=>a.id-b.id);
   if (sortType === "progress") filtered.sort((a,b)=>(b.current/b.total)-(a.current/a.total));
-
-  list.innerHTML = "";
 
   filtered.forEach(item => {
     const card = document.createElement("div");

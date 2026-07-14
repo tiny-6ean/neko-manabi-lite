@@ -3,9 +3,15 @@ const FOOTPRINT_KEY = "nekoFootprintsLite";
 
 let viewArchived = false;
 
+/* -------------------------
+   基本ロード・保存
+------------------------- */
 function loadItems() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
 function saveItems(items) { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
 
+/* -------------------------
+   知識の木
+------------------------- */
 function drawTree() {
   const canvas = document.getElementById("tree-canvas");
   const ctx = canvas.getContext("2d");
@@ -25,6 +31,9 @@ function drawTree() {
   }
 }
 
+/* -------------------------
+   足跡
+------------------------- */
 function loadFootprints() {
   const raw = localStorage.getItem(FOOTPRINT_KEY);
   const today = new Date().toISOString().slice(0,10);
@@ -41,6 +50,9 @@ function renderFootprints() {
   document.getElementById("footprints").textContent = "🐾".repeat(fp.count);
 }
 
+/* -------------------------
+   フォームクリア
+------------------------- */
 function clearForm() {
   document.getElementById("input-url").value = "";
   document.getElementById("input-title").value = "";
@@ -52,6 +64,9 @@ function clearForm() {
   document.getElementById("auto-tag-hint").textContent = "";
 }
 
+/* -------------------------
+   URL → 自動タグ
+------------------------- */
 document.getElementById("input-url").addEventListener("change", () => {
   const url = document.getElementById("input-url").value.trim();
   if (!url) return;
@@ -112,12 +127,18 @@ function showAutoTags(tags) {
   hint.textContent = uniq.length ? "自動タグ候補: " + uniq.join(", ") : "";
 }
 
+/* -------------------------
+   時間変換
+------------------------- */
 function toMMSS(value) {
   const m = Math.floor(value);
   const s = Math.round((value - m) * 60);
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
+/* -------------------------
+   追加
+------------------------- */
 function addItem() {
   const url = document.getElementById("input-url").value.trim();
   const title = document.getElementById("input-title").value.trim();
@@ -188,6 +209,9 @@ function addItem() {
   renderFootprints();
 }
 
+/* -------------------------
+   進捗更新
+------------------------- */
 function updateProgress(id) {
   const items = loadItems();
   const item = items.find(i => i.id === id);
@@ -217,6 +241,9 @@ function resetProgress(id) {
   renderList();
 }
 
+/* -------------------------
+   削除（アーカイブ）
+------------------------- */
 function confirmDelete(id) {
   if (confirm("この学びを削除しますか？\n（アーカイブに移動されます）")) {
     archiveItem(id);
@@ -241,6 +268,9 @@ function restoreItem(id) {
   renderList();
 }
 
+/* -------------------------
+   一覧切り替え
+------------------------- */
 function switchToActive() {
   viewArchived = false;
   renderList();
@@ -251,13 +281,17 @@ function switchToArchived() {
   renderList();
 }
 
+/* -------------------------
+   一覧（完全修正版）
+------------------------- */
 function renderList() {
   const list = document.getElementById("list");
   const switchArea = document.getElementById("archive-switch");
 
-  const items = loadItems();
+  const items = loadItems();  // ← ここで1回だけ宣言
   const archivedCount = items.filter(i => i.archived).length;
 
+  // 切り替えボタン（list の外に描画）
   switchArea.innerHTML = `
     <button onclick="switchToActive()" class="${viewArchived ? '' : 'btn-primary'}">
       学び一覧
@@ -269,7 +303,6 @@ function renderList() {
 
   list.innerHTML = "";
 
-  const items = loadItems();
   const keyword = search.value.trim().toLowerCase();
   const sortType = sort.value;
 
@@ -335,6 +368,9 @@ function renderList() {
   });
 }
 
+/* -------------------------
+   お気に入り・完了
+------------------------- */
 function toggleFavorite(id) {
   const items = loadItems();
   const item = items.find(i=>i.id===id);
@@ -351,6 +387,9 @@ function toggleDone(id) {
   renderList();
 }
 
+/* -------------------------
+   編集
+------------------------- */
 function editItem(id) {
   const items = loadItems();
   const item = items.find(i => i.id === id);
@@ -425,6 +464,9 @@ function saveEdit(id) {
   renderList();
 }
 
+/* -------------------------
+   バックアップ
+------------------------- */
 function saveBackup() {
   const data = {};
 
@@ -466,6 +508,9 @@ function loadBackup(file) {
   reader.readAsText(file);
 }
 
+/* -------------------------
+   初期化（途切れずに最後まで）
+------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
   renderList();
   drawTree();

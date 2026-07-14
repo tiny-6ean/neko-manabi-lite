@@ -1,0 +1,195 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: #f7f7f7;
+}
+
+header {
+  background: #ffcc66;
+  padding: 14px 20px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  margin-bottom: 20px;
+}
+
+.intro {
+  background: #fff8e6;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: .9rem;
+  margin-top: 10px;
+  display: block;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: .95rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .9rem;
+}
+
+.btn-primary {
+  background: #ff9933;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #eee;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+.item-card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+.item-title {
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+
+.item-url {
+  font-size: .85rem;
+  margin-top: 4px;
+  color: #0077cc;
+  word-break: break-all;
+}
+
+.tag {
+  display: inline-block;
+  background: #ffe0b3;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: .75rem;
+  margin-top: 4px;
+  margin-right: 4px;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.progress-wrap {
+  background: #eee;
+  height: 10px;
+  border-radius: 999px;
+  flex: 1;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #ff9933;
+  border-radius: 999px;
+  width: 0%;
+}
+
+.progress-percent {
+  font-size: .85rem;
+  color: #555;
+  min-width: 40px;
+  text-align: right;
+}
+
+#tree-canvas {
+  width: 100%;
+  max-width: 320px;
+  height: 320px;
+}
+
+.footprints {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+#list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 700px) {
+  #list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pos-row {
+  margin-bottom: 16px;
+}
+
+.backup-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pos-text {
+  margin-bottom: 6px;
+}
+
+.pos-row input.edit-pos,
+.pos-row button {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.pos-row button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.edit-pos {
+  width: 90px;
+}
+
+#input-note {
+  width: 100%;
+}

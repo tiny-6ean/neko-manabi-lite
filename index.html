@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ねこ学びログ Lite</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>ねこ学びログ Lite</header>
+
+<main>
+
+  <section class="intro">
+    <h2>このアプリについて</h2>
+    <p>ねこのために学んだことを「行動の記録」として残すためのトラッカーです。URLから自動で情報とタグを推定します。</p>
+  </section>
+
+  <div class="grid-2">
+    <section id="tree-area" class="card">
+      <h2>ねこの知識の木</h2>
+      <canvas id="tree-canvas" width="300" height="300"></canvas>
+    </section>
+
+    <section id="footprint-area" class="card">
+      <h2>今日の足跡</h2>
+      <div id="footprints" class="footprints"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>学びを追加</h2>
+
+<div class="grid-2">
+
+  <div>
+    <label>URL（動画・記事など）</label>
+    <input id="input-url" type="url" placeholder="https://youtu.be/jt9An94QAlk?si=CwXos9ULMFdtvgDs">
+    <small id="auto-tag-hint"></small>
+  </div>
+
+  <div>
+    <label>タイトル</label>
+    <input id="input-title" type="text" placeholder="例：【これだけでOK】猫の地震対策を獣医師が解説">
+  </div>
+
+  <div>
+    <label>シリーズ / チャンネル / 著者</label>
+    <input id="input-series" type="text" placeholder="例：くぅのキャットフード研究室 / 猫の食事がわかる本">
+  </div>
+
+  <div>
+    <label>タグ（自動＋手動）</label>
+    <input id="input-tag" type="text" placeholder="例：健康, 防災, 行動など">
+  </div>
+
+  <div>
+    <label>総量</label>
+    <input id="input-total" type="text" placeholder="ページ数・動画時間など">
+  </div>
+
+  <div>
+    <label>現在位置</label>
+    <input id="input-current" type="text" placeholder="今どこまで進んだか">
+  </div>
+
+</div>
+
+<div>
+  <label>メモ（簡易）</label>
+  <textarea id="input-note" placeholder="忘れないための短いメモ"></textarea>
+</div>
+
+    <div class="right">
+      <button class="btn-primary" onclick="addItem()">追加</button>
+      <button class="btn-secondary" onclick="clearForm()">クリア</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>学び一覧</h2>
+
+    <div class="grid-2">
+      <input id="search" type="text" placeholder="検索（タイトル・タグ・シリーズ）" oninput="renderList()">
+      <select id="sort" onchange="renderList()">
+        <option value="new">新しい順</option>
+        <option value="old">古い順</option>
+        <option value="progress">進捗順</option>
+      </select>
+    </div>
+
+    <div id="list" class="card-grid"></div>
+  </section>
+
+  <section class="card backup-card">
+    <div class="backup-row">
+      <button class="btn-secondary" onclick="saveBackup()">バックアップを保存</button>
+      <input type="file" accept=".json" onchange="loadBackup(this.files[0])">
+    </div>
+
+    <p class="backup-note">
+      Chrome同期がオンの場合、自動でデータが引き継がれます。  
+      同期オフの方は、バックアップ保存をご利用ください。
+    </p>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

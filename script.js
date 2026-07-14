@@ -253,17 +253,19 @@ function switchToArchived() {
 
 function renderList() {
   const list = document.getElementById("list");
-  const items = loadItems();
+  const switchArea = document.getElementById("archive-switch");
 
+  // 切り替えボタンを list の外に描画（スマホ・PC両方で確実に見える）
+  switchArea.innerHTML = `
+    <button onclick="switchToActive()" class="${viewArchived ? '' : 'btn-primary'}">学び一覧</button>
+    <button onclick="switchToArchived()" class="${viewArchived ? 'btn-primary' : ''}">アーカイブ一覧</button>
+  `;
+
+  list.innerHTML = "";
+
+  const items = loadItems();
   const keyword = search.value.trim().toLowerCase();
   const sortType = sort.value;
-
-  list.innerHTML = `
-    <div class="archive-switch" style="margin-bottom:12px; display:flex; gap:10px;">
-      <button onclick="switchToActive()" class="${viewArchived ? '' : 'btn-primary'}">学び一覧</button>
-      <button onclick="switchToArchived()" class="${viewArchived ? 'btn-primary' : ''}">アーカイブ一覧</button>
-    </div>
-  `;
 
   let filtered = items
     .filter(i => viewArchived ? i.archived : !i.archived)

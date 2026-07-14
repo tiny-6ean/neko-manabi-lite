@@ -262,7 +262,6 @@ function renderList() {
     <button onclick="switchToActive()" class="${viewArchived ? '' : 'btn-primary'}">
       学び一覧
     </button>
-
     <button onclick="switchToArchived()" class="${viewArchived ? 'btn-primary' : ''}">
       アーカイブ一覧（${archivedCount}件）
     </button>

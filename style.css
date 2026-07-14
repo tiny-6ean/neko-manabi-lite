@@ -193,3 +193,66 @@ button {
 #input-note {
   width: 100%;
 }
+
+.item-card {
+  position: relative;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.delete-btn:hover {
+  color: #555;
+}
+
+.edit-archive-btn,
+.edit-restore-btn {
+  background: #eee;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #444;
+  margin-left: 8px;
+}
+
+.edit-archive-btn:hover,
+.edit-restore-btn:hover {
+  background: #ddd;
+}
+
+.edit-btn-row {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+}
+
+.edit-row {
+  margin-bottom: 12px;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.edit-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}

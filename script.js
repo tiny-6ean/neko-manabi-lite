@@ -9,7 +9,7 @@ function drawTree() {
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0,0,300,300);
 
-  const items = loadItems();
+  const items = loadItems().filter(i => !i.archived);
   const count = items.length;
 
   ctx.fillStyle = "#8b5a2b";
@@ -170,6 +170,7 @@ function addItem() {
     total, current, note,
     favorite: false,
     done: false,
+    archived: false,
     createdAt: now,
     updatedAt: now
   });
@@ -214,6 +215,30 @@ function resetProgress(id) {
   renderList();
 }
 
+function confirmDelete(id) {
+  if (confirm("この学びを削除しますか？\n（アーカイブに移動されます）")) {
+    archiveItem(id);
+  }
+}
+
+function archiveItem(id) {
+  const items = loadItems();
+  const item = items.find(i => i.id === id);
+  item.archived = true;
+  saveItems(items);
+  renderList();
+  drawTree();
+  renderFootprints();
+}
+
+function restoreItem(id) {
+  const items = loadItems();
+  const item = items.find(i => i.id === id);
+  item.archived = false;
+  saveItems(items);
+  renderList();
+}
+
 function renderList() {
   const list = document.getElementById("list");
   const items = loadItems();
@@ -221,12 +246,14 @@ function renderList() {
   const keyword = search.value.trim().toLowerCase();
   const sortType = sort.value;
 
-  let filtered = items.filter(i => {
-    const tagsText = (i.tags || []).join(" ").toLowerCase();
-    return (i.title || "").toLowerCase().includes(keyword) ||
-           (i.series || "").toLowerCase().includes(keyword) ||
-           tagsText.includes(keyword);
-  });
+  let filtered = items
+    .filter(i => !i.archived)
+    .filter(i => {
+      const tagsText = (i.tags || []).join(" ").toLowerCase();
+      return (i.title || "").toLowerCase().includes(keyword) ||
+             (i.series || "").toLowerCase().includes(keyword) ||
+             tagsText.includes(keyword);
+    });
 
   if (sortType === "new") filtered.sort((a,b)=>b.id-a.id);
   if (sortType === "old") filtered.sort((a,b)=>a.id-b.id);
@@ -244,6 +271,8 @@ function renderList() {
     card.style.background = bg;
 
     card.innerHTML = `
+      <button class="delete-btn" onclick="confirmDelete(${item.id})">×</button>
+
       <div class="item-title">
         <a href="${item.url}" target="_blank">${item.title || "(タイトル未入力)"}</a>
       </div>
@@ -337,6 +366,11 @@ function editItem(id) {
     <div class="edit-btn-row">
       <button class="edit-save-btn" onclick="saveEdit(${id})">保存</button>
       <button class="edit-cancel-btn" onclick="renderList()">キャンセル</button>
+
+      ${item.archived
+        ? `<button class="edit-restore-btn" onclick="restoreItem(${id})">復元</button>`
+        : `<button class="edit-archive-btn" onclick="archiveItem(${id})">アーカイブ</button>`
+      }
     </div>
   `;
 }
@@ -369,7 +403,6 @@ function saveEdit(id) {
 function saveBackup() {
   const data = {};
 
-  // localStorage 全取得
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     data[key] = localStorage.getItem(key);
@@ -401,7 +434,7 @@ function loadBackup(file) {
       alert("バックアップを復元しました！");
       location.reload();
     } catch (e) {
-      alert("バックアップファイルが正しくありません。");
+      alert("バックアップファイルが正しくありません");
     }
   };
 

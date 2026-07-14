@@ -263,10 +263,6 @@ button {
 }
 
 #archive-switch {
-  margin-top: 12px;
-}
-
-#archive-switch {
   margin: 16px 0 12px;
   display: flex;
   gap: 8px;

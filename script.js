@@ -255,10 +255,17 @@ function renderList() {
   const list = document.getElementById("list");
   const switchArea = document.getElementById("archive-switch");
 
-  // 切り替えボタンを list の外に描画（スマホ・PC両方で確実に見える）
+  const items = loadItems();
+  const archivedCount = items.filter(i => i.archived).length;
+
   switchArea.innerHTML = `
-    <button onclick="switchToActive()" class="${viewArchived ? '' : 'btn-primary'}">学び一覧</button>
-    <button onclick="switchToArchived()" class="${viewArchived ? 'btn-primary' : ''}">アーカイブ一覧</button>
+    <button onclick="switchToActive()" class="${viewArchived ? '' : 'btn-primary'}">
+      学び一覧
+    </button>
+
+    <button onclick="switchToArchived()" class="${viewArchived ? 'btn-primary' : ''}">
+      アーカイブ一覧（${archivedCount}件）
+    </button>
   `;
 
   list.innerHTML = "";

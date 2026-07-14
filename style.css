@@ -256,3 +256,8 @@ button {
   border: 1px solid #ccc;
   border-radius: 8px;
 }
+
+.item-card {
+  position: relative;
+  overflow: visible;
+}

@@ -261,3 +261,32 @@ button {
   position: relative;
   overflow: visible;
 }
+
+#archive-switch {
+  margin-top: 12px;
+}
+
+#archive-switch {
+  margin: 16px 0 12px;
+  display: flex;
+  gap: 8px;
+}
+
+#archive-switch button {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #eee;
+  border: 1px solid #ddd;
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+#archive-switch .btn-primary {
+  background: #ff9933;
+  color: #fff;
+  border-color: #ff9933;
+}
+
+#archive-switch button:hover {
+  background: #e5e5e5;
+}

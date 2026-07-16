@@ -1,6 +1,6 @@
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js");
-  }
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
 
 const STORAGE_KEY = "nekoStudyLite";
 const FOOTPRINT_KEY = "nekoFootprintsLite";

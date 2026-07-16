@@ -1,12 +1,12 @@
 const CACHE_NAME = "neko-manabi-v2";
 const FILES = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/script.js",
-  "/manifest.json",
-  "/manabi192.png",
-  "/manabi512.png"
+  "./",
+  "./index.html",
+  "./style.css",
+  "./script.js",
+  "./manifest.json",
+  "./manabi192.png",
+  "./manabi512.png"
 ];
 
 self.addEventListener("install", (e) => {

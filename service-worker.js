@@ -1,4 +1,4 @@
-const CACHE_NAME = "neko-manabi-v2";
+const CACHE_NAME = "neko-manabi-v3";
 const FILES = [
   "./",
   "./index.html",
